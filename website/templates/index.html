@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+<!-- maina virsrakstu -->        
+{% block title %}
+Home page
+{% endblock %}
+<!-- papildina galvenā izkārtojuma izdevi -->          
+{% block content %}
+<!-- izveido grafisku elementu kurā ir atēota tumšāka josla -->
+<div>
+  <!-- Izvada str tekstu -->  
+  <h1>Welcome to Motivator.com</h1>
+  <!-- nosaka pogas izskatu -->   
+  <style> button{
+   width: 10%;
+   padding: 10px;}
+  </style>
+  <!-- izveido stilizētu pogiu ar linka apmeklēšanas funkciju  -->  
+  <button class="btn-link, btn-dark " >
+  <a class="btn-link" href="/music">Strart </a>
+  </button>
+</div>
+{% endblock %}
+            

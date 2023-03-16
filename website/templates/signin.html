@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+<!-- pārmainu lapas virsrakstu-->
+{% block title %}
+singup
+{% endblock %}
+        
+{% block content %}
+<!-- iazveido post funkciju, kas nolasīs un mainīs lietotāja ievadītos datus-->
+<div>{{ singupmessage }}</div>
+<form method="POST">
+  <body >
+  <!-- iazveido str tekstu-->
+  <h3>Sign up</h3>
+  <!-- savieno aprakstu ar ievadi-->
+  <div class="form-group">
+    <!--izveido aprakstu-->
+    <label for="email">Email Adres</label>
+    <!-- izveido ievadi, norādiju izdotos datus kā email un izveidoju string tekstu iekšā logā-->
+    <input type="email" 
+    class="from-control" 
+    id="email" 
+    name="email" 
+    placeholder="Enter email"/>
+  </div>
+  <!-- savieno aprakstu ar ievadi-->
+  <div class="form-group">
+    <!--izveido aprakstu-->
+    <label for="password1">Password</label>
+    <!-- izveido ievadi, norādiju izdotos datus kā password un izveidoju string tekstu iekšā logā-->
+    <input type="password" 
+    class="from-control" 
+    id="password1" 
+    name="password1" 
+    placeholder="Enter password"/>
+  </div>
+  <!-- savieno aprakstu ar ievadi-->
+  <div class="form-group">
+    <!--izveido aprakstu-->
+    <label for="password2">Confirm Password</label>
+    <!-- izveido ievadi, norādiju izdotos datus kā password un izveidoju string tekstu iekšā logā-->
+    <input type="password" 
+    class="from-control" 
+    id="password2" 
+    name="password2" 
+    placeholder="Confirm password"/>
+  </div>
+  <!-- izveido pogu, kas izraisīs datu nolasīšanu-->
+  <button type="submit" class="btn, btn-dark"> Submit</button>
+  </body>
+</form>
+<!-- novieto aprakstu virs ievades loga un pagarina ievades logu-->
+<style>
+  input,lable{display:flex;
+  flex-direction:column;}
+  input { width: 700px;}
+</style>
+
+{%endblock%}

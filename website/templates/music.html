@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+<!-- pārmainu lapas virsrakstu-->
+{% block title %}
+Music player
+{% endblock %}
+<!-- papildina galvenā izkārtojuma izdevi --> 
+{% block content %}
+<body>
+  <!-- Izvada tekstu -->
+  <h1>Random Audio Player</h1>
+  <!--izveido aprakstu-->
+  <label for="gender-select">Select Gender:</label>
+  <!--izveido drop down pogu ar 3 opcijām un dažādiem lielumiem-->
+  <select id="gender-select">
+    <option value="both">Both</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+  <!--izvada atstarpi-->
+  <br>
+  <!--izveido aprakstu-->
+  <label for="num-plays">Number of Plays:</label>
+  <!--izveido ievades lodziņu kuirā var ievadīt tikai int, kura ievades daudzums tiek nolasīts-->
+  <input type="number" id="num-plays" value="1">
+  <!--izvada atstarpi-->
+  <br>
+  <!--izveido pogas kuras veiks specifiskas funkcijas, no kurām viena ir apslēpta-->
+  <button id="play-button" onclick="playAudio()">Play</button>
+  <button id="stop-button" onclick="stopAudio()" disabled>Stop</button>
+</body>
+<script>
+  ///izveido sarakstu , kurā parādīta audijo atrašanās vieta un izpildītāja dzimums
+  var audioList = [
+    {src: "static/audio/male1.mp3", gender: "male"},
+    {src: "static/audio/female1.mp3", gender: "female"},
+    {src: "static/audio/male2.mp3", gender: "male"},
+    {src: "static/audio/female2.mp3", gender: "female"},
+    {src: "static/audio/male3.mp3", gender: "male"},
+    {src: "static/audio/female3.mp3", gender: "female"},
+    {src: "static/audio/male4.mp3", gender: "male"},
+    {src: "static/audio/female4.mp3", gender: "female"}
+    ]
+    ///parāda, ka pašlaik netiek spēlēts audio, ja tiek mēģināts spēlēt audijo, tad tas neizdodas
+    var currentAudio = null;
+    ///sniedz ievadīto spēlēšanas skaitu citam lieluma, lai tas nemainītos ievade logā
+    var numPlays = document.getElementById("num-plays");
+    ///sniedz ievadīto dzimumu citam elementam
+    var genderSelect = document.getElementById("gender-select");
+    ///izveido play un stop pogas
+    var playButton = document.getElementById("play-button");
+    var stopButton = document.getElementById("stop-button");
+    ///norāda ka atlikušais spēlēšanu skaits =0 apturot iespēju radīt bezgalīgu apli
+    var numPlaysLeft = 0;
+    ///definē playAudio() funkcionalitāti
+    function playAudio() {
+      ///šī funkcija aptur audijo ja tas sācis skanēt ,vai nav beidzis skanēt pēc funkcijas iziešanas
+      if (currentAudio != null) {
+        currentAudio.pause();
+        currentAudio = null;
+      }
+      ///sniedz ievadīto spēlēšanas skaitu elementam pirmajā reizē kad tiek veikta playAudio funkcija
+      if (numPlaysLeft <= 0) {
+        numPlaysLeft = parseInt(numPlays.value);
+      }
+      ///sniedz izvēlēto dzimumu elementam
+      var selectedGender = genderSelect.value;
+      ///Gadījumā, kad tiek izvēlēta opcija both, spēlējamie audio faili tiek norādīti kā visi audio faili
+      var availableAudioList = audioList;
+      ///Gadijumā kad netiek izvēlēta opcija both, spēlējamie audio faili tiek noteikti pēc izvēlētā dzimuma
+      if (selectedGender != "both") {
+        availableAudioList = audioList.filter(function(audio) {
+          return audio.gender == selectedGender;
+        });
+      } 
+      ///Tiek randomizēti izvēlēts spēlējamai audio fails
+      var randomIndex = Math.floor(Math.random() * availableAudioList.length);
+      var audio = new Audio(availableAudioList[randomIndex].src);
+      ///Tiek atskaņots randomizētais audio fails
+      audio.play();
+      currentAudio = audio;
+      ///Parāda programai, kas jādar, ja audio fails ir beidzies
+      audio.addEventListener('ended', function() {
+        ///Parāda programai, kas jādara ja atskaņošanas skaits lielāks par 1
+        if (numPlaysLeft > 1) {
+          numPlaysLeft -= 1;
+          var genderSelect = document.getElementById("gender-select");
+          playAudio()
+          ///Parāda programai, kas jādara ja ievadītais audio skaits jau ir nospēlēts,
+        } else {
+          ///tiek apturēts audio parādīta play poga ,paslēpta stop poga, un parādīta reižu ievade
+          currentAudio = null;
+          playButton.disabled = false;
+          stopButton.disabled = true;
+          numPlays.disabled = false;
+          numPlaysLeft = 0;
+        }
+      });
+      ///Parāda programai, kā atēlot ievades lodziņus un pogas audio atskaņojuma laikā
+      playButton.disabled = true;
+      stopButton.disabled = false;
+      numPlays.disabled = true;
+    }
+    ///Tiek aprakstīta stop pogas funkcionalitāte 
+    function stopAudio() {
+      if (currentAudio != null) {
+        currentAudio.pause();
+        currentAudio = null;
+      }
+      ///Parāda programai, kā atēlot ievades lodziņus un pogas klusuma laikā
+      playButton.disabled = false;
+      stopButton.disabled = true;
+      numPlays.disabled = false;
+      numPlaysLeft = 0;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+<!-- maina virsrakstu -->    
+{% block title %}
+More info
+{% endblock %}
+<!-- papildina galvenā izkārtojuma izdevi -->                 
+{% block content %}
+<div>{{ notemessage }}</div>
+<form method="POST">
+  <!-- iazvada str tekstu-->
+  <h3>Info page</h3>
+  <div class="form-group">
+    <!--izveido aprakstu-->
+    <label>What do you think about our website?/ How can we improve it?/ Witch motivational quotes schould we add?</label>
+    <br>
+    <!-- izveido ievadi, norādiju izdotos informāciju kāda informācija tiek sagaida logā ar string tekstu iekšā logā-->
+    <input type="text" 
+    class="from-control" 
+    id="note" 
+    name="note" 
+    placeholder="Your thoughts?"/>
+  </div>
+  <!-- Izveido pogu kura nosūta izvadīto informāciju -->      
+  <button type="submit" class="btn btn-primary">Send</button>
+</form>
+<br>
+<!-- izveido atstarpes starp elementiem -->      
+<br>
+<!-- Izvada tekstu, kuram nosaka klasi priekš tālākas tā stilizēšanas-->      
+<div class="a">
+  <h5>Code: https://github.com/RojsSmits/Motivator.com </h5>
+  <h5>Voices of our audio: https://play.ht </h5>
+  <h5>GHost writer: ChatGPT </h5>
+  <h5>Login, sign up system: https://www.youtube.com/watch?v=dam0GPOAvVI </h5>
+  <h5>Place where all my problems disappeared: https://stackoverflow.com/</h5>
+</div>
+<!--Stilizē tekstu un ievades lodziņu -->      
+<style>
+  input { width: 700px;}
+  .a {
+  text-align: left;
+  }
+</style>
+{% endblock %}
